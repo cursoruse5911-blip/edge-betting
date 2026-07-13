@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Edge — Play & Win ₹5,000</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#07101f;
+  --bg2:#0b1626;
+  --card:#0f1e35;
+  --cyan:#00c8f0;
+  --gold:#f0a500;
+  --green:#00d97e;
+  --pink:#ff3d8b;
+  --muted:#7a90b0;
+  --text:#dde6f5;
+  --border:rgba(0,200,240,.1);
+  --r:10px;
+  --fh:'Orbitron',monospace;
+  --fb:'Inter',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden;font-size:15px}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+
+/* LAYOUT */
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.sec{padding:56px 0}
+.sec-alt{background:var(--bg2)}
+
+/* SECTION HEADER */
+.sh{text-align:center;margin-bottom:36px}
+.sh .lbl{display:inline-block;font-family:var(--fh);font-size:9px;letter-spacing:2px;
+  text-transform:uppercase;padding:4px 12px;border-radius:20px;
+  background:rgba(0,200,240,.08);border:1px solid rgba(0,200,240,.2);color:var(--cyan);margin-bottom:10px}
+.sh h2{font-family:var(--fh);font-size:clamp(18px,3.5vw,28px);font-weight:700;letter-spacing:1px;line-height:1.25}
+.sh p{color:var(--muted);font-size:13px;margin-top:8px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;border:none;cursor:pointer;border-radius:8px;
+  padding:12px 22px;transition:opacity .2s,transform .15s;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn-gold{background:linear-gradient(135deg,#f0a500,#c87800);color:#07101f}
+.btn-cyan{background:linear-gradient(135deg,#00c8f0,#007fa0);color:#07101f}
+.btn-ghost{background:transparent;border:1px solid rgba(0,200,240,.3);color:var(--cyan);font-size:10px}
+.btn:hover{opacity:.88}
+.btn-w{width:100%}
+
+/* BADGE */
+.bdg{display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--fh);font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 11px;border-radius:20px;font-weight:700}
+.bdg-red{background:rgba(255,61,139,.1);border:1px solid rgba(255,61,139,.3);color:var(--pink)}
+.bdg-gold{background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.28);color:var(--gold)}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:99;
+  background:rgba(7,16,31,.94);border-bottom:1px solid var(--border);
+  backdrop-filter:blur(10px)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 16px;max-width:960px;margin:0 auto}
+.logo{font-family:var(--fh);font-size:20px;font-weight:900;letter-spacing:3px}
+.logo .e{color:var(--cyan)} .logo .dge{color:var(--text)}
+.nav-sub{font-size:9px;color:var(--muted);letter-spacing:2px;font-family:var(--fh);display:block;margin-top:1px}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(170deg,#08142a 0%,#0c1e3a 55%,#07101f 100%);
+  padding:60px 0 64px;text-align:center;position:relative;overflow:hidden}
+/* subtle grid */
+.hero::before{content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,200,240,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,200,240,.025) 1px,transparent 1px);
+  background-size:44px 44px;pointer-events:none}
+/* top glow */
+.hero::after{content:'';position:absolute;top:-160px;left:50%;
+  transform:translateX(-50%);width:500px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,200,240,.07),transparent 70%);pointer-events:none}
+.hero-in{position:relative;z-index:1}
+.hero-lbl{margin-bottom:16px}
+.hero h1{font-family:var(--fh);font-size:clamp(22px,5.5vw,48px);
+  font-weight:900;letter-spacing:2px;line-height:1.1;margin-bottom:8px}
+.hero .rs{
+  display:block;font-size:clamp(52px,11vw,96px);line-height:1;
+  color:var(--gold);
+  text-shadow:0 0 24px rgba(240,165,0,.35);
+  animation:gp 3s ease-in-out infinite}
+@keyframes gp{0%,100%{text-shadow:0 0 24px rgba(240,165,0,.35)}50%{text-shadow:0 0 44px rgba(240,165,0,.6)}}
+.hero-sub{font-size:14px;color:var(--muted);margin:14px 0 28px;letter-spacing:.3px}
+.hero-sub b{color:var(--cyan);font-weight:600}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+.hero-btns .btn{padding:13px 26px;font-size:12px}
+
+/* trust pills */
+.pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:44px}
+.pill{display:flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  padding:5px 11px;border-radius:20px;font-size:11px;color:var(--muted)}
+.pip{width:6px;height:6px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 5px var(--green);animation:bl 2s ease infinite;flex-shrink:0}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ── GAME CARDS ── */
+.gcards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  max-width:820px;margin:0 auto}
+.gc{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);
+  background:var(--card);transition:transform .2s,box-shadow .2s}
+.gc:hover{transform:translateY(-4px);
+  box-shadow:0 12px 32px rgba(0,0,0,.4),0 0 18px rgba(0,200,240,.08)}
+.gc svg{width:100%;display:block}
+.gc-ft{padding:8px 12px;display:flex;justify-content:space-between;align-items:center}
+.gn{font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:1px}
+.lv{display:flex;align-items:center;gap:3px;
+  font-size:9px;color:var(--green);font-family:var(--fh);letter-spacing:1px}
+.lv::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0;
+  background:var(--green);box-shadow:0 0 4px var(--green);animation:bl 2s ease infinite}
+
+/* ── BONUS STRIP ── */
+.strip{background:linear-gradient(90deg,#a06800,var(--gold),#ffe066,var(--gold),#a06800);
+  background-size:200%;animation:sh 3s linear infinite;padding:14px 16px;text-align:center}
+@keyframes sh{0%{background-position:200%}100%{background-position:-200%}}
+.strip p{font-family:var(--fh);font-size:clamp(11px,2.2vw,15px);
+  font-weight:700;color:#07101f;letter-spacing:.5px}
+
+/* ── FEATURES ── */
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.fc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:22px 18px;position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s}
+.fc:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(0,0,0,.3)}
+.fc::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:var(--r) var(--r) 0 0}
+.fc.ca::after{background:linear-gradient(90deg,var(--gold),#ffe066)}
+.fc.cb::after{background:linear-gradient(90deg,var(--cyan),#007fa0)}
+.fc.cc::after{background:linear-gradient(90deg,var(--green),#00a05a)}
+.fc.cd::after{background:linear-gradient(90deg,var(--pink),#b0005a)}
+.fc .ic{font-size:26px;margin-bottom:10px}
+.fc h3{font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:7px}
+.fc p{color:var(--muted);font-size:12px;line-height:1.65}
+.ftag{display:inline-flex;margin-top:10px;font-size:9px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:16px}
+.ta{background:rgba(240,165,0,.08);color:var(--gold);border:1px solid rgba(240,165,0,.2)}
+.tb{background:rgba(0,200,240,.08);color:var(--cyan);border:1px solid rgba(0,200,240,.2)}
+.tc{background:rgba(0,217,126,.08);color:var(--green);border:1px solid rgba(0,217,126,.2)}
+.td{background:rgba(255,61,139,.08);color:var(--pink);border:1px solid rgba(255,61,139,.2)}
+
+/* ── SCREENSHOTS ── */
+.ssg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:32px}
+.sm{grid-column:1/-1;height:240px}
+.ss{height:155px}
+.dz{border:2px dashed rgba(0,200,240,.18);border-radius:var(--r);
+  background:rgba(0,200,240,.02);cursor:pointer;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;transition:border-color .2s,background .2s;user-select:none}
+.dz:hover,.dz.ov{border-color:var(--cyan);background:rgba(0,200,240,.05)}
+.dz input{display:none}
+.dz img.pv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:8px}
+.dz .xb{display:none;position:absolute;top:7px;right:7px;
+  background:rgba(255,61,139,.8);color:#fff;border:none;cursor:pointer;
+  border-radius:50%;width:22px;height:22px;font-size:11px;z-index:5;
+  align-items:center;justify-content:center}
+.dz:hover .xb{display:flex}
+.dz .ht{position:absolute;bottom:7px;right:9px;
+  background:rgba(0,200,240,.1);border:1px solid rgba(0,200,240,.2);
+  padding:3px 8px;border-radius:5px;font-family:var(--fh);font-size:8px;
+  color:var(--cyan);letter-spacing:1px;pointer-events:none}
+
+/* ── HOW IT WORKS ── */
+.hiw{position:relative;margin-top:40px}
+.hiw-line{position:absolute;left:27px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--cyan),var(--gold),var(--pink),var(--green));
+  border-radius:2px}
+.hs{display:flex;gap:16px;align-items:flex-start;padding-bottom:20px;position:relative}
+.hs:last-child{padding-bottom:0}
+.hd{width:56px;height:56px;border-radius:50%;flex-shrink:0;z-index:2;
+  display:flex;align-items:center;justify-content:center;font-size:20px;
+  border:2px solid transparent;background:var(--bg2)}
+.dc{border-color:var(--cyan);box-shadow:0 0 12px rgba(0,200,240,.2)}
+.dg{border-color:var(--gold);box-shadow:0 0 12px rgba(240,165,0,.2)}
+.dv{border-color:var(--green);box-shadow:0 0 12px rgba(0,217,126,.2)}
+.hc{flex:1;background:var(--card);border:1px solid var(--border);
+  border-radius:var(--r);padding:14px 16px}
+.hc h3{font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:5px}
+.hc p{font-size:12px;color:var(--muted);line-height:1.65}
+.ht-tag{display:inline-flex;margin-top:8px;font-size:9px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:16px;
+  background:rgba(0,200,240,.07);color:var(--cyan);border:1px solid rgba(0,200,240,.18)}
+.hiw-cta{text-align:center;margin-top:32px}
+
+/* ── PAYMENT ── */
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:32px}
+.pc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);
+  padding:24px 16px;text-align:center;transition:transform .2s,border-color .2s}
+.pc:hover{transform:translateY(-3px);border-color:rgba(0,200,240,.22)}
+.pi{font-size:34px;margin-bottom:10px}
+.pc h3{font-family:var(--fh);font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:7px}
+.pc p{font-size:12px;color:var(--muted);line-height:1.6}
+.pb{display:inline-flex;margin-top:10px;font-size:9px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:16px;
+  background:rgba(0,217,126,.07);color:var(--green);border:1px solid rgba(0,217,126,.18)}
+
+/* ── CTA BOX ── */
+.cta-sec{padding:60px 0;background:var(--bg)}
+.cta-box{background:var(--card);border:1px solid rgba(240,165,0,.2);
+  border-radius:14px;padding:36px 24px;text-align:center;
+  max-width:560px;margin:0 auto;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cta-num{font-family:var(--fh);font-size:clamp(56px,13vw,90px);font-weight:900;
+  color:var(--gold);text-shadow:0 0 22px rgba(240,165,0,.35);
+  animation:gp 3s ease-in-out infinite;line-height:1}
+.cta-lbl{font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
+.cta-box h3{font-family:var(--fh);font-size:clamp(14px,2.5vw,18px);
+  font-weight:700;letter-spacing:1px;margin-bottom:9px}
+.cta-box p{color:var(--muted);font-size:13px;margin-bottom:22px;line-height:1.7}
+.cta-btns{display:flex;flex-direction:column;gap:9px}
+
+/* ── FOOTER ── */
+footer{background:#030a14;padding:44px 16px 22px;border-top:1px solid var(--border)}
+.ft{text-align:center}
+.ft-logo{font-family:var(--fh);font-size:18px;font-weight:900;letter-spacing:3px;margin-bottom:6px}
+.ft-logo .e{color:var(--cyan)} .ft-logo .r{color:var(--text)}
+.ft p{color:var(--muted);font-size:12px;max-width:420px;margin:0 auto 20px;line-height:1.7}
+.ft-dl{margin-bottom:24px;padding:12px 28px;font-size:11px}
+.ft-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.ft-links a{color:var(--muted);font-size:12px;transition:color .2s}
+.ft-links a:hover{color:var(--text)}
+.ft-copy{font-size:10px;color:#2a3a55;letter-spacing:1px}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .gcards{grid-template-columns:1fr 1fr}
+  .gcards .gc:last-child{display:none}
+  .ssg{grid-template-columns:1fr}
+  .sm{height:190px}
+  .ss{height:148px}
+  .hiw-line{left:25px}
+  .hd{width:52px;height:52px;font-size:18px}
+  .nav-in .btn-ghost{display:none}
+  .fg{grid-template-columns:1fr 1fr}
+  .pg{grid-template-columns:1fr 1fr}
+}
+@media(max-width:380px){
+  .gcards{grid-template-columns:1fr}
+  .gcards .gc:nth-child(2){display:none}
+  .fg{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-in">
+    <div class="logo">
+      <span class="e">E</span><span class="dge">DGE</span>
+      <span class="nav-sub">BETTING GAME PORTAL</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="#download" class="btn btn-ghost">Login</a>
+      <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-gold" style="padding:10px 18px;font-size:10px">⬇ Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in wrap">
+    <div class="hero-lbl"><span class="bdg bdg-red">⏰ Limited Time Offer</span></div>
+    <h1>
+      Sign Up &amp; Get
+      <span class="rs">₹5,000</span>
+      Bonus — Instantly!
+    </h1>
+    <p class="hero-sub">Play Betting Games &nbsp;•&nbsp; <b>Instant Withdrawal</b> &nbsp;•&nbsp; 100% Free</p>
+    <div class="hero-btns">
+      <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-gold">🎮 Play Now — Free</a>
+      <a href="#how" class="btn btn-cyan">⬇ How It Works</a>
+    </div>
+    <div class="pills">
+      <span class="pill"><span class="pip"></span>Android APK</span>
+      <span class="pill"><span class="pip"></span>100% Free</span>
+      <span class="pill"><span class="pip"></span>₹5,000 Bonus</span>
+      <span class="pill"><span class="pip"></span>Same-Day Withdrawal</span>
+    </div>
+
+    <!-- Game Cards — same SVGs, lighter wrapper -->
+    <div class="gcards">
+
+      <!-- CRASH -->
+      <div class="gc">
+        <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="280" height="160" fill="#060e20"/>
+          <line x1="0" y1="140" x2="280" y2="140" stroke="rgba(0,200,240,.1)" stroke-width="1"/>
+          <line x1="0" y1="105" x2="280" y2="105" stroke="rgba(0,200,240,.05)" stroke-width="1" stroke-dasharray="4,4"/>
+          <line x1="0" y1="70"  x2="280" y2="70"  stroke="rgba(0,200,240,.05)" stroke-width="1" stroke-dasharray="4,4"/>
+          <path d="M20,140 Q70,135 110,115 Q155,88 200,52 Q235,24 258,12" stroke="#00c8f0" stroke-width="2" fill="none"/>
+          <path d="M20,140 Q70,135 110,115 Q155,88 200,52 Q235,24 258,12 L258,140Z" fill="rgba(0,200,240,.07)"/>
+          <rect x="90" y="54" width="100" height="34" rx="7" fill="rgba(0,200,240,.1)" stroke="rgba(0,200,240,.3)" stroke-width="1"/>
+          <text x="140" y="77" text-anchor="middle" font-family="Orbitron,monospace" font-size="17" font-weight="700" fill="#00c8f0">3.42x</text>
+          <text x="255" y="16" font-size="14" text-anchor="middle">🚀</text>
+        </svg>
+        <div class="gc-ft">
+          <span class="gn" style="color:var(--cyan)">Crash</span>
+          <span class="lv">Live</span>
+        </div>
+      </div>
+
+      <!-- DICE -->
+      <div class="gc">
+        <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="280" height="160" fill="#0a0d18"/>
+          <text x="140" y="46" text-anchor="middle" font-size="24">🎲</text>
+          <rect x="14" y="66" width="252" height="11" rx="5" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+          <rect x="14" y="66" width="140" height="11" rx="5" fill="rgba(240,165,0,.7)"/>
+          <circle cx="154" cy="71" r="9" fill="#0a0d18" stroke="#f0a500" stroke-width="1.5"/>
+          <rect x="80" y="94" width="120" height="44" rx="9" fill="rgba(240,165,0,.06)" stroke="rgba(240,165,0,.22)" stroke-width="1"/>
+          <text x="140" y="110" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(240,165,0,.45)" letter-spacing="2">WIN CHANCE</text>
+          <text x="140" y="133" text-anchor="middle" font-family="Orbitron,monospace" font-size="22" font-weight="700" fill="#f0a500">54.3%</text>
+        </svg>
+        <div class="gc-ft">
+          <span class="gn" style="color:var(--gold)">Dice</span>
+          <span class="lv">Live</span>
+        </div>
+      </div>
+
+      <!-- MINES -->
+      <div class="gc">
+        <svg viewBox="0 0 280 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="280" height="160" fill="#060b18"/>
+          <rect x="12" y="12" width="48" height="34" rx="5" fill="rgba(0,217,126,.1)" stroke="rgba(0,217,126,.28)" stroke-width="1"/><text x="36" y="35" text-anchor="middle" font-size="15">💎</text>
+          <rect x="66" y="12" width="48" height="34" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="120" y="12" width="48" height="34" rx="5" fill="rgba(0,217,126,.1)" stroke="rgba(0,217,126,.28)" stroke-width="1"/><text x="144" y="35" text-anchor="middle" font-size="15">💎</text>
+          <rect x="174" y="12" width="48" height="34" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="228" y="12" width="40" height="34" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="12" y="52" width="48" height="34" rx="5" fill="rgba(0,217,126,.1)" stroke="rgba(0,217,126,.28)" stroke-width="1"/><text x="36" y="75" text-anchor="middle" font-size="15">💎</text>
+          <rect x="66" y="52" width="48" height="34" rx="5" fill="rgba(255,61,139,.1)" stroke="rgba(255,61,139,.4)" stroke-width="1.5"/><text x="90" y="75" text-anchor="middle" font-size="15">💣</text>
+          <rect x="120" y="52" width="48" height="34" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="174" y="52" width="48" height="34" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="228" y="52" width="40" height="34" rx="5" fill="rgba(0,217,126,.1)" stroke="rgba(0,217,126,.28)" stroke-width="1"/><text x="248" y="75" text-anchor="middle" font-size="15">💎</text>
+          <rect x="74" y="100" width="132" height="38" rx="8" fill="rgba(0,217,126,.06)" stroke="rgba(0,217,126,.2)" stroke-width="1"/>
+          <text x="140" y="114" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(0,217,126,.45)" letter-spacing="2">MULTIPLIER</text>
+          <text x="140" y="134" text-anchor="middle" font-family="Orbitron,monospace" font-size="18" font-weight="700" fill="#00d97e">2.38x</text>
+        </svg>
+        <div class="gc-ft">
+          <span class="gn" style="color:var(--green)">Mines</span>
+          <span class="lv">Live</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- BONUS STRIP -->
+<div class="strip">
+  <p>🎁 &nbsp;Register today and claim your ₹5,000 bonus instantly — No deposit required!</p>
+</div>
+
+<!-- FEATURES -->
+<section class="sec sec-alt" id="features">
+  <div class="wrap">
+    <div class="sh">
+      <span class="lbl">Why Edge</span>
+      <h2>Why <span style="color:var(--gold)">Players Choose</span> Edge</h2>
+      <p>Trusted platform. Fast payouts. Big bonuses.</p>
+    </div>
+    <div class="fg">
+      <div class="fc ca">
+        <div class="ic">🎁</div>
+        <h3 style="color:var(--gold)">₹5,000 Instant Bonus</h3>
+        <p>New users get ₹5,000 points the moment they register. No deposit needed.</p>
+        <span class="ftag ta">✓ Instant</span>
+      </div>
+      <div class="fc cb">
+        <div class="ic">⚡</div>
+        <h3 style="color:var(--cyan)">Same-Day Withdrawal</h3>
+        <p>Win and withdraw the same day via Bank, UPI, or Crypto. No delays.</p>
+        <span class="ftag tb">✓ Fast Payout</span>
+      </div>
+      <div class="fc cc">
+        <div class="ic">🔒</div>
+        <h3 style="color:var(--green)">Secure & Trusted</h3>
+        <p>Fair-play certified. Trusted by 500,000+ players worldwide.</p>
+        <span class="ftag tc">✓ 100% Secure</span>
+      </div>
+      <div class="fc cd">
+        <div class="ic">🎮</div>
+        <h3 style="color:var(--pink)">10+ Games</h3>
+        <p>Crash, Dice, Mines, Slots, Cricket Betting and more. All fair and fun.</p>
+        <span class="ftag td">✓ 10+ Games</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GAME SCREENSHOTS -->
+<section class="sec" id="games">
+  <div class="wrap">
+    <div class="sh">
+      <span class="lbl">Game Showcase</span>
+      <h2>Our <span style="color:var(--cyan)">Featured Games</span></h2>
+      <p>Tap any image to replace with your own screenshot.</p>
+    </div>
+    <div class="ssg">
+
+      <!-- Main — lobby mockup -->
+      <div class="dz sm" id="dz0" onclick="pick('dz0')">
+        <input type="file" accept="image/*" onchange="load(event,'dz0')"/>
+        <svg viewBox="0 0 700 240" style="position:absolute;inset:0;width:100%;height:100%;border-radius:8px" xmlns="http://www.w3.org/2000/svg">
+          <rect width="700" height="240" fill="#060e20"/>
+          <rect width="700" height="34" fill="rgba(0,200,240,.05)"/>
+          <text x="14" y="22" font-family="Orbitron,monospace" font-size="11" font-weight="700" fill="#00c8f0">EDGE — GAME PORTAL</text>
+          <rect x="0" y="34" width="700" height="24" fill="rgba(0,0,0,.25)"/>
+          <rect x="8" y="38" width="60" height="16" rx="4" fill="rgba(0,200,240,.18)" stroke="rgba(0,200,240,.35)" stroke-width="1"/>
+          <text x="38" y="50" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="#00c8f0">CRASH</text>
+          <rect x="74" y="38" width="52" height="16" rx="4" fill="rgba(255,255,255,.04)"/>
+          <text x="100" y="50" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(255,255,255,.3)">DICE</text>
+          <rect x="132" y="38" width="52" height="16" rx="4" fill="rgba(255,255,255,.04)"/>
+          <text x="158" y="50" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(255,255,255,.3)">MINES</text>
+          <!-- chart -->
+          <rect x="8" y="64" width="400" height="164" rx="8" fill="rgba(0,200,240,.025)" stroke="rgba(0,200,240,.08)" stroke-width="1"/>
+          <line x1="8" y1="196" x2="408" y2="196" stroke="rgba(0,200,240,.07)" stroke-width="1"/>
+          <line x1="8" y1="163" x2="408" y2="163" stroke="rgba(0,200,240,.04)" stroke-width="1" stroke-dasharray="4,4"/>
+          <path d="M26,196 Q88,190 138,170 Q202,142 272,104 Q335,68 400,44" stroke="#00c8f0" stroke-width="2" fill="none"/>
+          <path d="M26,196 Q88,190 138,170 Q202,142 272,104 Q335,68 400,44 L400,196Z" fill="rgba(0,200,240,.06)"/>
+          <rect x="128" y="82" width="112" height="38" rx="7" fill="rgba(0,200,240,.1)" stroke="rgba(0,200,240,.28)" stroke-width="1"/>
+          <text x="184" y="97" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(0,200,240,.55)" letter-spacing="2">MULTIPLIER</text>
+          <text x="184" y="116" text-anchor="middle" font-family="Orbitron,monospace" font-size="20" font-weight="700" fill="#00c8f0">5.12x</text>
+          <text x="398" y="48" font-size="13">🚀</text>
+          <!-- sidebar -->
+          <rect x="416" y="64" width="276" height="164" rx="8" fill="rgba(255,255,255,.018)" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+          <text x="554" y="85" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(255,255,255,.3)" letter-spacing="2">BET AMOUNT</text>
+          <rect x="426" y="91" width="256" height="24" rx="6" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+          <text x="554" y="108" text-anchor="middle" font-family="Orbitron,monospace" font-size="12" font-weight="700" fill="white">₹ 500</text>
+          <rect x="426" y="122" width="256" height="30" rx="7" fill="rgba(240,165,0,.85)"/>
+          <text x="554" y="142" text-anchor="middle" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="#07101f">PLACE BET</text>
+          <text x="554" y="165" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(0,217,126,.55)" letter-spacing="1">LIVE: 2,847 BETS</text>
+          <rect x="426" y="172" width="256" height="14" rx="3" fill="rgba(0,217,126,.05)"/>
+          <text x="438" y="183" font-family="Orbitron,monospace" font-size="7" fill="rgba(0,217,126,.55)">+₹2,450 · 4.90x · WIN</text>
+          <rect x="426" y="190" width="256" height="14" rx="3" fill="rgba(255,61,139,.04)"/>
+          <text x="438" y="201" font-family="Orbitron,monospace" font-size="7" fill="rgba(255,61,139,.5)">+₹890 · 1.78x · WIN</text>
+          <rect x="426" y="208" width="256" height="14" rx="3" fill="rgba(255,255,255,.025)"/>
+        </svg>
+        <button class="xb" onclick="rem(event,'dz0')">✕</button>
+        <div class="ht">📷 Tap to replace</div>
+      </div>
+
+      <!-- Side — Dice -->
+      <div class="dz ss" id="dz1" onclick="pick('dz1')">
+        <input type="file" accept="image/*" onchange="load(event,'dz1')"/>
+        <svg viewBox="0 0 320 155" style="position:absolute;inset:0;width:100%;height:100%;border-radius:8px" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="155" fill="#0a0d18"/>
+          <rect width="320" height="28" fill="rgba(240,165,0,.05)"/>
+          <text x="14" y="19" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="#f0a500">DICE</text>
+          <text x="160" y="48" text-anchor="middle" font-size="20">🎲</text>
+          <rect x="14" y="62" width="292" height="10" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="14" y="62" width="155" height="10" rx="5" fill="rgba(240,165,0,.65)"/>
+          <circle cx="169" cy="67" r="8" fill="#0a0d18" stroke="#f0a500" stroke-width="1.5"/>
+          <rect x="82" y="84" width="156" height="44" rx="8" fill="rgba(240,165,0,.05)" stroke="rgba(240,165,0,.2)" stroke-width="1"/>
+          <text x="160" y="99" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(240,165,0,.4)" letter-spacing="2">WIN CHANCE</text>
+          <text x="160" y="123" text-anchor="middle" font-family="Orbitron,monospace" font-size="22" font-weight="700" fill="#f0a500">54.3%</text>
+          <rect x="14" y="140" width="292" height="10" rx="4" fill="rgba(240,165,0,.75)"/>
+          <text x="160" y="149" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" font-weight="700" fill="#07101f">ROLL DICE</text>
+        </svg>
+        <button class="xb" onclick="rem(event,'dz1')">✕</button>
+        <div class="ht">📷 Replace</div>
+      </div>
+
+      <!-- Side — Mines -->
+      <div class="dz ss" id="dz2" onclick="pick('dz2')">
+        <input type="file" accept="image/*" onchange="load(event,'dz2')"/>
+        <svg viewBox="0 0 320 155" style="position:absolute;inset:0;width:100%;height:100%;border-radius:8px" xmlns="http://www.w3.org/2000/svg">
+          <rect width="320" height="155" fill="#060b18"/>
+          <rect width="320" height="28" fill="rgba(0,217,126,.04)"/>
+          <text x="14" y="19" font-family="Orbitron,monospace" font-size="10" font-weight="700" fill="#00d97e">MINES</text>
+          <rect x="12" y="32" width="50" height="32" rx="5" fill="rgba(0,217,126,.09)" stroke="rgba(0,217,126,.25)" stroke-width="1"/><text x="37" y="53" text-anchor="middle" font-size="14">💎</text>
+          <rect x="68" y="32" width="50" height="32" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="124" y="32" width="50" height="32" rx="5" fill="rgba(0,217,126,.09)" stroke="rgba(0,217,126,.25)" stroke-width="1"/><text x="149" y="53" text-anchor="middle" font-size="14">💎</text>
+          <rect x="180" y="32" width="50" height="32" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="236" y="32" width="72" height="32" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="12" y="70" width="50" height="32" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="68" y="70" width="50" height="32" rx="5" fill="rgba(255,61,139,.09)" stroke="rgba(255,61,139,.38)" stroke-width="1.5"/><text x="93" y="91" text-anchor="middle" font-size="14">💣</text>
+          <rect x="124" y="70" width="50" height="32" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="180" y="70" width="50" height="32" rx="5" fill="rgba(0,217,126,.09)" stroke="rgba(0,217,126,.25)" stroke-width="1"/><text x="205" y="91" text-anchor="middle" font-size="14">💎</text>
+          <rect x="236" y="70" width="72" height="32" rx="5" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <rect x="80" y="112" width="160" height="34" rx="8" fill="rgba(0,217,126,.05)" stroke="rgba(0,217,126,.2)" stroke-width="1"/>
+          <text x="160" y="125" text-anchor="middle" font-family="Orbitron,monospace" font-size="7" fill="rgba(0,217,126,.4)" letter-spacing="2">MULTIPLIER</text>
+          <text x="160" y="142" text-anchor="middle" font-family="Orbitron,monospace" font-size="18" font-weight="700" fill="#00d97e">3.75x</text>
+        </svg>
+        <button class="xb" onclick="rem(event,'dz2')">✕</button>
+        <div class="ht">📷 Replace</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec sec-alt" id="how">
+  <div class="wrap">
+    <div class="sh">
+      <span class="lbl">Step by Step</span>
+      <h2>How to <span style="color:var(--cyan)">Install &amp; Claim</span></h2>
+      <p>Takes less than 2 minutes.</p>
+    </div>
+    <div class="hiw">
+      <div class="hiw-line"></div>
+      <div class="hs">
+        <div class="hd dc">⬇</div>
+        <div class="hc">
+          <h3 style="color:var(--cyan)">Step 1 — Download the APK</h3>
+          <p>Tap below. APK saves directly to your Downloads folder.</p>
+          <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-cyan" style="margin-top:10px;padding:9px 18px;font-size:9px">⬇ Download Now</a>
+        </div>
+      </div>
+      <div class="hs">
+        <div class="hd dc">⚙️</div>
+        <div class="hc">
+          <h3 style="color:var(--cyan)">Step 2 — Allow Unknown Sources</h3>
+          <p>Settings → Security → Enable <strong>"Install from Unknown Sources"</strong>. Android 8+ asks automatically.</p>
+          <span class="ht-tag">💡 Auto-prompt on Android 8+</span>
+        </div>
+      </div>
+      <div class="hs">
+        <div class="hd dc">📦</div>
+        <div class="hc">
+          <h3 style="color:var(--cyan)">Step 3 — Install &amp; Open</h3>
+          <p>Open Downloads, tap APK, tap <strong>"Install"</strong>. Done in seconds.</p>
+          <span class="ht-tag">✓ Safe · Fast · Free</span>
+        </div>
+      </div>
+      <div class="hs">
+        <div class="hd dg">🎁</div>
+        <div class="hc">
+          <h3 style="color:var(--gold)">Step 4 — Register &amp; Claim ₹5,000</h3>
+          <p>Enter your mobile number, verify OTP, and your <strong>₹5,000 bonus</strong> is credited instantly.</p>
+          <span class="ht-tag" style="background:rgba(240,165,0,.07);color:var(--gold);border-color:rgba(240,165,0,.18)">⚡ Credited in seconds</span>
+        </div>
+      </div>
+      <div class="hs">
+        <div class="hd dv">💸</div>
+        <div class="hc">
+          <h3 style="color:var(--green)">Step 5 — Withdraw Anytime</h3>
+          <p>Wallet → Withdraw. Choose Bank, UPI, or Crypto and get paid fast.</p>
+          <span class="ht-tag" style="background:rgba(0,217,126,.07);color:var(--green);border-color:rgba(0,217,126,.18)">✓ Bank · UPI · Crypto</span>
+        </div>
+      </div>
+    </div>
+    <div class="hiw-cta">
+      <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-gold" style="font-size:12px;padding:14px 32px">⬇ Download &amp; Get Started</a>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="sec" id="payment">
+  <div class="wrap">
+    <div class="sh">
+      <span class="lbl">Withdrawal</span>
+      <h2>Payment <span style="color:var(--gold)">Methods</span></h2>
+      <p>Fast, secure withdrawals. No waiting, no hidden fees.</p>
+    </div>
+    <div class="pg">
+      <div class="pc">
+        <div class="pi">🏛️</div>
+        <h3>Bank Account</h3>
+        <p>Withdraw directly to your bank. Enter account &amp; IFSC/SWIFT in app.</p>
+        <div class="pb">✓ Supported</div>
+      </div>
+      <div class="pc">
+        <div class="pi">📲</div>
+        <h3>UPI</h3>
+        <p>Instant UPI transfer — Paytm, PhonePe, Google Pay and more.</p>
+        <div class="pb">✓ Supported</div>
+      </div>
+      <div class="pc">
+        <div class="pi">💎</div>
+        <h3>Crypto Wallet</h3>
+        <p>USDT (TRC20/ERC20), Bitcoin and all major tokens.</p>
+        <div class="pb">✓ Supported</div>
+      </div>
+      <div class="pc">
+        <div class="pi">👛</div>
+        <h3>E-Wallet</h3>
+        <p>Fast e-wallet withdrawals. Low minimum, zero platform fees.</p>
+        <div class="pb">✓ Supported</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-sec" id="download">
+  <div class="wrap">
+    <div class="cta-box">
+      <span class="bdg bdg-red" style="margin-bottom:14px">⏰ Limited Time Offer</span>
+      <div class="cta-lbl">Your Bonus Waiting</div>
+      <div class="cta-num">₹5,000</div>
+      <div class="cta-lbl" style="margin-top:4px">Points — Free</div>
+      <h3>One Click Away — Register Now</h3>
+      <p>Download the APK, register, and claim your <strong style="color:var(--text)">₹5,000 bonus</strong> immediately. Withdraw to bank, UPI, or crypto anytime.</p>
+      <div class="cta-btns">
+        <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-gold btn-w" style="font-size:12px;padding:14px">🎁 Register &amp; Claim ₹5,000</a>
+        <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-cyan btn-w" style="font-size:12px;padding:14px">⬇ Download APK — Free</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div class="ft-logo"><span class="e">E</span><span class="r">DGE</span></div>
+    <p>Official Gaming Platform — Crash, Dice, Mines, Slots &amp; Cricket Betting.<br>Free to. Free to use.</p>
+    <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" class="btn btn-gold ft-dl">⬇ Download Edge APK</a>
+    <div style="margin-bottom:20px">
+      <a href="https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk" target="_blank" style="color:var(--gold);font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:1px">
+        🎁 Register &amp; Claim ₹5,000 →
+      </a>
+    </div>
+    <div class="ft-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact</a>
+      <a href="#">About</a>
+    </div>
+    <div class="ft-copy">© 2025 EDGE GAME PORTAL · ALL RIGHTS RESERVED · 18+</div>
+  </div>
+</footer>
+
+<script>
+const APK = 'https://github.com/cursoruse5911-blip/Edge-s-/releases/download/untagged-daeeb4f6a52939f2dc21/Edge.apk';
+
+// ── ALL DOWNLOAD BUTTONS — point to APK ──
+document.querySelectorAll('a.btn, a[data-dl]').forEach(a => {
+  if(a.getAttribute('href') === '#' ||
+     a.getAttribute('href') === '#download' ||
+     a.getAttribute('href') === APK) {
+    a.setAttribute('href', APK);
+    a.setAttribute('target', '_blank');
+    a.removeAttribute('download');
+  }
+});
+
+// ── AUTO-DOWNLOAD when page opens ──
+// window.location.href works on mobile without popup blocker issues
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    window.location.href = APK;
+  }, 500);
+});
+
+// ── IMAGE DROP ZONES ──
+function pick(id){ document.querySelector('#'+id+' input').click() }
+function load(e,id){
+  const file=e.target.files[0]; if(!file) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    const z=document.getElementById(id);
+    z.querySelector('svg').style.display='none';
+    const o=z.querySelector('img.pv'); if(o) o.remove();
+    const i=document.createElement('img');
+    i.className='pv'; i.src=ev.target.result;
+    z.insertBefore(i,z.firstChild);
+    const h=z.querySelector('.ht'); if(h) h.style.display='none';
+  };
+  r.readAsDataURL(file);
+}
+function rem(e,id){
+  e.stopPropagation();
+  const z=document.getElementById(id);
+  const i=z.querySelector('img.pv'); if(i) i.remove();
+  const s=z.querySelector('svg'); if(s) s.style.display='';
+  const h=z.querySelector('.ht'); if(h) h.style.display='';
+  z.querySelector('input').value='';
+}
+document.querySelectorAll('.dz').forEach(z=>{
+  z.addEventListener('dragover',e=>{e.preventDefault();z.classList.add('ov')});
+  z.addEventListener('dragleave',()=>z.classList.remove('ov'));
+  z.addEventListener('drop',e=>{
+    e.preventDefault(); z.classList.remove('ov');
+    const f=e.dataTransfer.files[0];
+    if(!f||!f.type.startsWith('image/')) return;
+    load({target:{files:[f]}},z.id);
+  });
+});
+</script>
+</body>
+</html>
